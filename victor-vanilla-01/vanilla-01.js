@@ -1,106 +1,107 @@
-// примитивы:
-// number, string, boolean, null, undefined, NaN, Infinity, BigInt, Symbol
-// объекты:
-// array, function, object
+// Objects:
+// -object
+// -array
+// -function
 
-// 1. сложная структура
-// 2. имеют свойства и методы
-// 3. ссылочный тип данных
-
-const num = 5;
-
-const obj = {}; // #234
-const num2 = num; // (5 & 5)
-const obj2 = obj; // #234
-
-obj2.name = "Aidar";
-console.log(obj);
-
-// const arr = []; // new Array
-
-class Student {
-}
-
-const st = new Student();
+// structure => make copy => change copy => use copy
 
 const user = {
-    name: "Bob",
+    name: "Aidar",
     age: 23,
-    isStudent: false
+    friends: ["Azim", "Baizak"]
 }
-// Bob became a student
+
+// CRUD
+// create - read - update - delete
+
 const copyUser = {
-    ... user,
-    // name: "Bob",
-    // age: 23,
-    // isStudent: true
+    ...user,
+    friends: [...user.friends]
+}
+
+const superUser = {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+        }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+        "name": "Romaguera-Crona",
+        "catchPhrase": "Multi-layered client-server neural-net",
+        "bs": "harness real-time e-markets"
+    }
+}
+
+const copySuperUser = {
+    ...superUser
+}
+
+const users = [
+    {
+        id: 1,
+        name: "Aidar",
+        isStudent: true
+    }, {
+        id: 2,
+        name: "Agbar",
+        isStudent: true
+    }, {
+        id: 3,
+        name: "Baizak",
+        isStudent: true
+    }, {
+        id: 4,
+        name: "Azim",
+        isStudent: true
+    },
+
+]
+
+const copyUsers = [
+    ...users,
+];
+
+const newStudent = {
+    id: 5,
+    name: "Donald",
     isStudent: true
 }
 
-const arr = [1, 2, 3, 4, 5];
-const copyArr = [...arr];
+// const updatedUsers = [...users, newStudent];
+//
+// const updatedUsers = [];
+// for (let i = 0; i < users.length; i++) {
+//     updatedUsers.push(users[i]);
+// }
+// updatedUsers.push();
 
-console.log(user === copyUser);
 
-function stateChecker(curr, next) {
-    if (curr === next) {
-        alert("no changes")
-    } else {
-        alert("need refresh page")
-    }
+const updatedUsers = users.filter(st => st.id !== 4);
+console.log(updatedUsers === users);
+
+const superUser2 = {
+    ...superUser,
+    address: {...superUser.address, city: "Bishkek"}
 }
 
-stateChecker(user, copyUser);
-
-
-const students = [
-    {
-        name: "Azim",
-        age: 22,
-        address: {
-            city: "Bishkek",
-            street: "Manas"
-        }
-    },
-    {
-        name: "Kolya",
-        age: 22,
-        address: {
-            city: "Astana",
-            street: "Nazarbaeva"
-        }
-    }
-]
-
-// CRUD
-// Create
-// Read (filter, sort, search)
-// Update
-// Delete
-
-// add new student "CREATE"
-
-const newStudent = {
-    name: "John",
-    age: 28,
+const superUser3 = {
+    ...superUser,
     address: {
-        city: "Taskent",
-        street: "Tamerlan"
+        ...superUser.address,
+        geo: {
+            "lat": "183.567",
+            "lng": "938.737"
+        }
     }
 }
-
-const students_1 = [...students, newStudent] // [old, old, new]
-
-// stateChecker(students, students_1);
-
-// const students_2 = [... students, {...newStudent, address: {...newStudent.address, street: "FIFA"}}];
-
-// Change age to John
-const students_2 = students_1.map(st => st.name === "John"
-    ? {...st, address: {...st.address, street: "FIFA"}}
-    : st
-)
-stateChecker(students_1, students_2);
-
-const student_3 = students_2.filter(el => el.name !== "Bob")
-stateChecker(students_2, student_3)
